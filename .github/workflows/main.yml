@@ -1,0 +1,32 @@
+name: action2-yaml
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  content: read
+
+jobs:
+  deploying to azure Function App:
+    runs-on: windows-latest
+
+    step:
+      - name: load-repo
+        uses: action/checkout@v4
+
+      - name: Setup node
+        uses: action/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: install dependancy
+        run: npm install
+
+      - name: Azure Deployment
+        uses: action/function-action@v1
+        with:
+          app-name: SADS
+          package: "."
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
