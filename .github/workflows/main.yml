@@ -6,18 +6,18 @@ on:
       - main
 
 permissions:
-  content: read
+  contents: read
 
 jobs:
-  deploying to azure Function App:
+  deploying_to_azure:
     runs-on: windows-latest
 
-    step:
+    steps:
       - name: load-repo
-        uses: action/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Setup node
-        uses: action/setup-node@v4
+        uses: actions/setup-node@v4
         with:
           node-version: "22"
 
@@ -25,8 +25,8 @@ jobs:
         run: npm install
 
       - name: Azure Deployment
-        uses: action/function-action@v1
+        uses: actions/function-action@v1
         with:
-          app-name: SADS
+          app-name: "SADS"
           package: "."
           publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
